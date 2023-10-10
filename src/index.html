@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/Ellipse 1.png"
+    />
+    <title>Rock, Paper, Scissors</title>
+    <link rel="stylesheet" href="../dist/output.css" />
+
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Rule [Position: Absolute] -w -->
+    <div
+      id="overlay"
+      ondblclick="hideRules()"
+      class="max-sm:hidden hidden absolute h-full w-full backdrop-blur-sm z-10"
+    ></div>
+
+    <div
+      class="hidden sm:absolute sm:h-80 sm:w-80 sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-20"
+      id="rules"
+      data-active="no"
+    >
+      <div
+        class="absolute w-full h-full bg-white z-10 flex max-sm:flex-col justify-around sm:justify-between max-sm:items-center sm:p-5 sm:rounded-md"
+      >
+        <div>
+          <h1
+            class="text-3xl sm:text-lg font-bold sm:font-semibold text-darkText"
+          >
+            RULES
+          </h1>
+        </div>
+        <div
+          class="sm:absolute sm:w-60 top-2/3 left-1/2 sm:-translate-x-1/2 sm:-translate-y-2/3"
+        >
+          <img src="../images/image-rules.svg" alt="Error" />
+        </div>
+        <div class="cursor-pointer" onclick="hideRules()">
+          <img src="../images/icon-close.svg" alt="Error" />
+        </div>
+      </div>
+    </div>
+
+    <!-- container -->
+    <div class="sm:mx-auto p-8 pt-12 flex flex-col h-full justify-between">
+      <!-- First Child Heading -->
+      <header
+        class="outline outline-[3px] outline-headerOutline rounded-md sm:w-[600px] sm:mx-auto"
+      >
+        <div class="flex justify-between p-3 items-center">
+          <div class="w-24">
+            <img src="../images/logo.svg" alt="" />
+          </div>
+
+          <div
+            class="bg-white text-center rounded-md px-4 w-[110px] py-2 text-darkText"
+          >
+            <p class="font-light">SCORE</p>
+            <p class="text-4xl font-bold" id="scores">0</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Second Child Main -->
+      <main class="flex-grow py-6 relative">
+        <!-- Step 1 Make a choice -->
+        <section class="" id="step-1">
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40"
+          >
+            <img src="../images/bg-triangle.svg" alt="Error" />
+
+            <!-- Paper -->
+            <div
+              class="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            >
+              <div
+                class="rounded-full h-32 w-32 flex items-center justify-center bg-paperColor cursor-pointer"
+                onclick="startGameChoiceWith('paper')"
+                id="paper"
+              >
+                <div
+                  class="rounded-full h-24 w-24 flex justify-center items-center bg-white"
+                >
+                  <img src="../images/icon-paper.svg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Scissors -->
+            <div
+              class="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full"
+            >
+              <div
+                class="rounded-full h-32 w-32 flex items-center justify-center bg-scissorsColor cursor-pointer"
+                onclick="startGameChoiceWith('scissors')"
+                id="scissors"
+              >
+                <div
+                  class="rounded-full h-24 w-24 flex justify-center items-center bg-white"
+                >
+                  <img src="../images/icon-scissors.svg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Rock -->
+            <div
+              class="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 rounded-full"
+            >
+              <div
+                class="rounded-full h-32 w-32 flex items-center justify-center bg-rockColor cursor-pointer"
+                onclick="startGameChoiceWith('rock')"
+                id="rock"
+              >
+                <div
+                  class="rounded-full h-24 w-24 flex justify-center items-center bg-white"
+                >
+                  <img src="../images/icon-rock.svg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2: Displaying Your Choice -->
+        <section class="max-sm:mt-14 hidden md:mx-auto" id="displaying">
+          <div
+            class="static flex justify-between sm:items-center md:w-[700px] md:mx-auto text-white"
+            id="step3Changes"
+          >
+            <!-- You Picked -->
+            <div class="flex flex-col sm:flex-col-reverse items-center">
+              <div
+                class="rounded-full h-32 w-32 md:h-52 md:w-52 flex items-center justify-center"
+                id="pickedColor"
+              >
+                <div
+                  class="rounded-full h-24 w-24 md:h-40 md:w-40 flex justify-center items-center bg-white"
+                >
+                  <img
+                    class="md:w-20"
+                    src="../images/icon-scissors.svg"
+                    alt="Error"
+                    id="yourPickedImg"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-5 sm:mb-8 tracking-widest">YOU PICKED</div>
+            </div>
+
+            <!-- Displaying Result -->
+            <div
+              class="max-sm:absolute bottom-5 left-0 right-0 hidden sm:mx-4 sm:mt-20"
+              id="playAgain"
+            >
+              <div class="flex flex-col items-center">
+                <h1
+                  class="text-center font-bold text-5xl sm:text-3xl mb-2"
+                  id="result"
+                >
+                  YOU WIN
+                </h1>
+                <button
+                  class="bg-white rounded-md text-darkText px-12 py-2 hover:text-red-500"
+                  onclick="playAgain()"
+                >
+                  PALY AGAIN
+                </button>
+              </div>
+            </div>
+
+            <!-- The House Picked -->
+            <div class="flex flex-col sm:flex-col-reverse items-center">
+              <div
+                class="rounded-full h-32 w-32 md:h-52 md:w-52 flex items-center justify-center bg-darkSpace"
+                id="housePickedColor"
+              >
+                <div
+                  class="rounded-full h-24 w-24 md:h-40 md:w-40 flex justify-center items-center"
+                  id="houseBgWhite"
+                >
+                  <img
+                    src=""
+                    alt=""
+                    class="hidden md:w-20"
+                    id="housePickedImg"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-5 sm:mb-8 tracking-widest">THE HOUSE PICKED</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Third Child Button -->
+      <div class="flex justify-center items-center sm:justify-end sm:z-20">
+        <button
+          class="rounded-md border-2 sm:border border-headerOutline text-white px-12 py-2 sm:px-6 sm:py-1 hover:text-darkText hover:bg-white hover:border-white tracking-widest"
+          onclick="showRule()"
+        >
+          RULES
+        </button>
+      </div>
+    </div>
+
+
+
+    <!-- JavaScript Code -->
+    <script src="./script.js"></script>
+  </body>
+</html>
